@@ -149,16 +149,18 @@ Shape* shape_create (const float* data, GLuint size, GLenum type) {
     glBindBuffer(GL_ARRAY_BUFFER, vbo_id);
 
     // Upload Buffer Data.
-    GLuint length = size * 10 * sizeof(float);
+    GLuint length = size * 13 * sizeof(float);
     glBufferData(GL_ARRAY_BUFFER, length, data, GL_STATIC_DRAW);
 
     // Bind Attributes.
     glEnableVertexAttribArray(ATTRIB_POSITION);
-    glVertexAttribPointer(ATTRIB_POSITION, 4, GL_FLOAT, GL_FALSE, 40, 0);
+    glVertexAttribPointer(ATTRIB_POSITION, 4, GL_FLOAT, GL_FALSE, 52, 0);
     glEnableVertexAttribArray(ATTRIB_TEXCOORD);
-    glVertexAttribPointer(ATTRIB_TEXCOORD, 2, GL_FLOAT, GL_FALSE, 40, (void*)16);
+    glVertexAttribPointer(ATTRIB_TEXCOORD, 2, GL_FLOAT, GL_FALSE, 52, (void*)16);
     glEnableVertexAttribArray(ATTRIB_COLOR);
-    glVertexAttribPointer(ATTRIB_COLOR, 4, GL_FLOAT, GL_FALSE, 40, (void*)24);
+    glVertexAttribPointer(ATTRIB_COLOR, 4, GL_FLOAT, GL_FALSE, 52, (void*)24);
+    glEnableVertexAttribArray(ATTRIB_NORMAL);
+    glVertexAttribPointer(ATTRIB_COLOR, 4, GL_FLOAT, GL_FALSE, 52, (void*)40);
 
     // Cleanup.
     glBindVertexArray(0);

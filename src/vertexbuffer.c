@@ -16,12 +16,13 @@ static void buffer_expand (VertexBuffer* buffer) {
 
 VertexBuffer* vertexbuffer_create () {
     VertexBuffer* buffer = malloc(sizeof(VertexBuffer));
-    buffer->data = calloc(sizeof(float), 32);
+    buffer->data = calloc(sizeof(float), 64);
     buffer->size = 0;
-    buffer->capacity = 32;
+    buffer->capacity = 64;
 
     buffer->texcoord = cons2f(0,0);
     buffer->color = cons4f(0,0,0,0);
+    buffer->normal = cons3f(0,0,0);
 
     return buffer;
 }
@@ -39,8 +40,12 @@ void vertexbuffer_color (VertexBuffer* vertexbuffer, Vec4f color) {
     vertexbuffer->color = color;
 }
 
+void vertexbuffer_normal (VertexBuffer* vertexbuffer, Vec3f normal) {
+    vertexbuffer->normal = normal;
+}
+
 void vertexbuffer_vertex (VertexBuffer* vertexbuffer, Vec4f vertex) {
-    while (vertexbuffer->size + 10 > vertexbuffer->capacity)
+    while (vertexbuffer->size + 13 > vertexbuffer->capacity)
         buffer_expand(vertexbuffer);
 
     vertexbuffer->data[vertexbuffer->size]   = vertex.x;
@@ -53,11 +58,14 @@ void vertexbuffer_vertex (VertexBuffer* vertexbuffer, Vec4f vertex) {
     vertexbuffer->data[vertexbuffer->size+7] = vertexbuffer->color.y;
     vertexbuffer->data[vertexbuffer->size+8] = vertexbuffer->color.z;
     vertexbuffer->data[vertexbuffer->size+9] = vertexbuffer->color.w;
+    vertexbuffer->data[vertexbuffer->size+10] = vertexbuffer->normal.x;
+    vertexbuffer->data[vertexbuffer->size+11] = vertexbuffer->normal.y;
+    vertexbuffer->data[vertexbuffer->size+12] = vertexbuffer->normal.z;
 
-    vertexbuffer->size += 10;
+    vertexbuffer->size += 13;
 }
 
 Shape* vertexbuffer_export (VertexBuffer* vertexbuffer, uint32_t type) {
-    uint32_t size = vertexbuffer->size / 10;
+    uint32_t size = vertexbuffer->size / 13;
     return shape_create(vertexbuffer->data, size, type);
 }

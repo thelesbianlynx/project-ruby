@@ -6,17 +6,18 @@
 
 // SHAPE BUFFER FORMAT
 //
-// - A shape is defined by a list of vertices, each of which is 10 floats long.
+// - A shape is defined by a list of vertices, each of which is 13 floats long.
 // - The floats of a vertex have the following meaning:
 //
-//    (x,y,z,w,u,v,r,g,b,a)
+//    (x,y,z,w,u,v,r,g,b,a,nx,ny,nz)
 //
 //      where:
 //       - (x,y,z,w) is the position.
 //       - (u,v) is the texture coordinate.
 //       - (r,g,b,a) is the color.
+//       - (nx, ny, nz) is the normal.
 //
-// - Thus, every buffer passed into shape_create must have a length that is a multiple of 10.
+// - Thus, every buffer passed into shape_create must have a length that is a multiple of 13.
 // - Further, the meaning of parameter 'size' is the number of vertices, not the length of the list directly.
 
 
@@ -36,6 +37,7 @@ enum shader_attributes {
     ATTRIB_POSITION = 1,        // Type: vec4
     ATTRIB_TEXCOORD = 2,        // Type: vec2
     ATTRIB_COLOR = 3,           // Type: vec4
+    ATTRIB_NORMAL = 4,          // Type: vec3
 };
 
 // Resource Slots.
@@ -104,7 +106,7 @@ Shader* shader_create (const char* name);
 void shader_destroy (Shader* shader);
 
 // Create and Destroy Shape Objets
-//  - Length of list 'data' must be size*10 floats long.
+//  - Length of list 'data' must be size*13 floats long.
 Shape* shape_create (const float* data, GLuint size, GLenum type);
 void shape_destroy (Shape* shape);
 

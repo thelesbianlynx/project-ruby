@@ -10,6 +10,7 @@ uniform vec4 T;
 layout(location=1) in vec4 position;
 layout(location=2) in vec2 texcoord;
 layout(location=3) in vec4 color;
+layout(location=4) in vec3 normal;
 
 out vec4 vColor;
 out vec2 vTexcoord;

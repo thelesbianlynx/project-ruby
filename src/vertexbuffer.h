@@ -11,6 +11,7 @@ struct vertexbuffer {
 
     Vec2f texcoord;
     Vec4f color;
+    Vec3f normal;
 };
 
 VertexBuffer* vertexbuffer_create ();
@@ -18,6 +19,7 @@ void vertexbuffer_destroy (VertexBuffer* vertexbuffer);
 
 void vertexbuffer_texcoord (VertexBuffer* vertexbuffer, Vec2f texcoord);
 void vertexbuffer_color (VertexBuffer* vertexbuffer, Vec4f color);
+void vertexbuffer_normal (VertexBuffer* vertexbuffer, Vec3f normal);
 
 void vertexbuffer_vertex (VertexBuffer* vertexbuffer, Vec4f vertex);
 
