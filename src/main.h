@@ -25,6 +25,12 @@ typedef struct image Image;
 typedef struct drawinfo DrawInfo;
 typedef struct vertexbuffer VertexBuffer;
 
+typedef struct environment Environment;
+typedef struct entity Entity;
+typedef struct entity_type EntityType;
+typedef struct message Message;
+
+typedef struct player Player;
 
 //
 // Global Constants + Macros.
@@ -35,7 +41,7 @@ typedef struct vertexbuffer VertexBuffer;
 
 #define FOV 1.4
 #define NEAR 0.03
-#define FAR 300
+#define FAR 300.0
 
 #define SPEED 0.3
 #define SENSITIVITY 0.003

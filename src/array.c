@@ -33,10 +33,14 @@ void array_destroy (Array* array) {
 
 void array_destroy_callback (Array* array, array_callback callback) {
     if (callback != NULL)
-        for (int i = 0; i < array->size - 1; ++i)
+        for (int i = 0; i < array->size; ++i)
             callback(array->data[i]);
     free(array->data);
     free(array);
+}
+
+void array_clear (Array* array) {
+    array->size = 0;
 }
 
 void array_add (Array* array, void* item) {
@@ -57,13 +61,13 @@ void* array_pop  (Array* array) {
     return array->data[array->size];
 }
 
-void* array_get (Array* array, uint32_t index) {
+void* array_get (Array* array, int32_t index) {
     if (index < 0 || index >= array->size) return NULL;
 
     return array->data[index];
 }
 
-void* array_set (Array* array, uint32_t index, void* item) {
+void* array_set (Array* array, int32_t index, void* item) {
     if (index < 0) return NULL;
     if (index >= array->size) {
         array_add(array, item);
@@ -75,11 +79,24 @@ void* array_set (Array* array, uint32_t index, void* item) {
     return r;
 }
 
-void array_insert (Array* array, uint32_t index, void* item) {
+void array_insert (Array* array, int32_t index, void* item) {
+    if (index < 0) return;
+    if (index >= array->size) {
+        array_push(array, item);
+        return;
+    }
 
+    if (array->size >= array->capacity) array_expand(array);
+
+    for (int i = array->size; i >= index; i--) {
+        array->data[i+1] = array->data[i];
+    }
+
+    array->data[index] = item;
+    array->size++;
 }
 
-void* array_remove (Array* array, uint32_t index) {
+void* array_remove (Array* array, int32_t index) {
     if (index < 0 || index >= array->size) return NULL;
 
     void* r = array->data[index];

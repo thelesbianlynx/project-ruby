@@ -71,7 +71,7 @@ Window* window_create (const char* title, int width, int height) {
     printf("%f %f\n", xscale, yscale);
 
     // Set clear color.
-    glClearColor(1,0,1,1);
+    glClearColor(1,1,1,1);
 
     // Set GLFW Callbacks
     glfwSetKeyCallback(glfw_window, glfw_key_callback);
