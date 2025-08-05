@@ -85,9 +85,10 @@ void env_update (Environment* env) {
     }
 
     if (env->state == ENV_LOAD) {
-        
+
         entity_ref(env->player->entity);
         array_add(env->entities, env->player->entity);
+        array_add(env->entities, entity_create(env, 0, ENTITY_ORB, cons3f(0, 0, -3)));
 
         for (int i = 0; i < env->entities->size; ++i) {
             entity_load(env->entities->data[i]);
@@ -154,7 +155,6 @@ void env_draw (Environment* env) {
         shader_set_view(env->shader, &V);
 
         DrawInfo info;
-        drawinfo_init(&info);
         for (int i = 0; i < env->entities->size; i++) {
             drawinfo_init(&info);
             entity_draw(env->entities->data[i], env->shader, &info);

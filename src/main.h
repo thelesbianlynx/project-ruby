@@ -31,6 +31,7 @@ typedef struct entity_type EntityType;
 typedef struct message Message;
 
 typedef struct player Player;
+typedef struct orb Orb;
 
 //
 // Global Constants + Macros.

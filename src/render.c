@@ -160,7 +160,7 @@ Shape* shape_create (const float* data, GLuint size, GLenum type) {
     glEnableVertexAttribArray(ATTRIB_COLOR);
     glVertexAttribPointer(ATTRIB_COLOR, 4, GL_FLOAT, GL_FALSE, 52, (void*)24);
     glEnableVertexAttribArray(ATTRIB_NORMAL);
-    glVertexAttribPointer(ATTRIB_COLOR, 4, GL_FLOAT, GL_FALSE, 52, (void*)40);
+    glVertexAttribPointer(ATTRIB_NORMAL, 3, GL_FLOAT, GL_FALSE, 52, (void*)40);
 
     // Cleanup.
     glBindVertexArray(0);

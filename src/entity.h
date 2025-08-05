@@ -5,6 +5,7 @@
 
 enum entity_list {
     ENTITY_PLAYER = 0,
+    ENTITY_ORB,
 };
 
 enum entity_state {

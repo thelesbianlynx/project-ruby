@@ -4,9 +4,11 @@
 
 
 extern EntityType player_entity_type;
+extern EntityType orb_entity_type;
 
 EntityType* entity_type_list[] = {
     [ENTITY_PLAYER] = &player_entity_type,
+    [ENTITY_ORB] = &orb_entity_type,
 };
 
 Entity* entity_create (Environment* env, uint32_t id, uint32_t type_id, Vec3f pos) {
