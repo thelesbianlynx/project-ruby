@@ -6,6 +6,7 @@
 int main (int argc, char** argv) {
     window_init_backend();
     Window* window = window_create("Project Ruby", 1280, 720);
+    window_grab_mouse(window, true);
 
     Environment* env = env_create(window);
 

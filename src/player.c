@@ -89,7 +89,48 @@ static
 void player_load (Entity* entity) {}
 
 static
-void player_update (Entity* entity) {}
+void player_update (Entity* entity) {
+    Player* player = entity->data;
+    Environment* env = entity->env;
+
+    player->yaw -= SENSITIVITY * env->input->dmouse.x;
+    player->pitch += SENSITIVITY * env->input->dmouse.y;
+
+    while (player->yaw < 0) player->yaw += TWO_PI;
+    while (player->yaw >= TWO_PI) player->yaw -= TWO_PI;
+
+    if (player->pitch > HALF_PI) player->pitch = HALF_PI;
+    if (player->pitch < -HALF_PI) player->pitch = -HALF_PI;
+
+    float sy = SPEED * sin(player->yaw);
+    float cy = SPEED * cos(player->yaw);
+
+    if (env->input->up) {
+        entity->pos.x -= sy;
+        entity->pos.z -= cy;
+    }
+    if (env->input->down) {
+        entity->pos.x += sy;
+        entity->pos.z += cy;
+    }
+    if (env->input->left) {
+        entity->pos.x -= cy;
+        entity->pos.z += sy;
+    }
+    if (env->input->right) {
+        entity->pos.x += cy;
+        entity->pos.z -= sy;
+    }
+
+    if (env->input->space) {
+        entity->pos.y += SPEED;
+    }
+    if (env->input->shift) {
+        entity->pos.y -= SPEED;
+    }
+
+
+}
 
 static
 void player_save (Entity* entity) {}

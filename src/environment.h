@@ -7,6 +7,8 @@ struct environment {
     Window* window;
     Shader* shader;
 
+    InputState* input;
+
     Player* player;
 
     uint32_t state;
@@ -15,6 +17,18 @@ struct environment {
     Array* new_entities;
 };
 
+struct input_state {
+    Vec2f mouse;
+    Vec2f dmouse;
+
+    bool up;
+    bool down;
+    bool left;
+    bool right;
+
+    bool space;
+    bool shift;
+};
 
 Environment* env_create (Window* window);
 

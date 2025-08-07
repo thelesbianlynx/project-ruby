@@ -30,6 +30,7 @@ Environment* env_create (Window* window) {
     Environment* env = malloc(sizeof(Environment));
     env->window = window;
     env->shader = shader_create("res/shader/default");
+    env->input = calloc(1, sizeof(InputState));
     env->player = player_create(env);
     env->entities = array_create();
     env->new_entities = array_create();
@@ -70,6 +71,7 @@ void env_destroy (Environment* env) {
     array_destroy(env->new_entities);
     player_destroy(env->player);
     shader_destroy(env->shader);
+    free(env->input);
     free(env);
 }
 
@@ -146,6 +148,8 @@ void env_update (Environment* env) {
 
         env->state = ENV_INIT;
     }
+
+    env->input->dmouse = cons2f(0,0);
 }
 
 void env_draw (Environment* env) {
@@ -172,7 +176,31 @@ void env_add_entity (Environment* env, Entity* entity) {
 
 static
 void on_key (Window* window, uint32_t key, uint32_t state) {
+    Environment* env = window->user;
 
+    switch (key) {
+        case 'A':
+            env->input->left = !(state == 0);
+            break;
+        case 'D':
+            env->input->right = !(state == 0);
+            break;
+        case 'W':
+            env->input->up = !(state == 0);
+            break;
+        case 'S':
+            env->input->down = !(state == 0);
+            break;
+        case ' ':
+            env->input->space = !(state == 0);
+            break;
+        case IN_SHIFT:
+            env->input->shift = !(state == 0);
+            break;
+        case IN_ESC:
+            window_set_should_close(window);
+            break;
+    }
 }
 
 static
@@ -182,7 +210,10 @@ void on_mouse_hover (Window* window, bool hover) {
 
 static
 void on_mouse_motion (Window* window, double x, double y) {
+    Environment* env = window->user;
 
+    env->input->dmouse = sub2f(cons2f(x,y), env->input->mouse);
+    env->input->mouse = cons2f(x, y);
 }
 
 static

@@ -26,6 +26,8 @@ typedef struct drawinfo DrawInfo;
 typedef struct vertexbuffer VertexBuffer;
 
 typedef struct environment Environment;
+typedef struct input_state InputState;
+
 typedef struct entity Entity;
 typedef struct entity_type EntityType;
 typedef struct message Message;
@@ -44,8 +46,11 @@ typedef struct orb Orb;
 #define NEAR 0.03
 #define FAR 300.0
 
-#define SPEED 0.3
-#define SENSITIVITY 0.003
+#define IN_SHIFT 340
+#define IN_ESC 256
+
+#define SPEED 0.03
+#define SENSITIVITY 0.0003
 
 
 static inline int32_t DIV (int32_t a, int32_t b) {

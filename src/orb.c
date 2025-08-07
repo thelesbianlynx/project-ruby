@@ -17,6 +17,8 @@ static void orb_draw (Entity* entity, Shader* shader, DrawInfo* drawinfo);
 // static void orb_collide (Entity* entity, Entity* other);
 // static void orb_react (Entity* entity, Entity* other, float dist);
 
+static Shape* mkOrbShape ();
+
 EntityType orb_entity_type = {
     .id = 0,
     .on_init = orb_init,
@@ -39,7 +41,7 @@ void orb_init (Entity* entity) {
     {
         VertexBuffer* buf = vertexbuffer_create();
 
-        vertexbuffer_color(buf, cons4f(1,0,1,1));
+        vertexbuffer_color(buf, cons4f(1,1,1,1));
         vertexbuffer_vertex(buf, cons4f(0,0,0,1));
         vertexbuffer_vertex(buf, cons4f(1,1,0,1));
         vertexbuffer_vertex(buf, cons4f(0,1,0,1));
@@ -66,7 +68,8 @@ void orb_draw (Entity* entity,  Shader* shader, DrawInfo* drawinfo) {
     Orb* orb = entity->data;
 
     drawinfo->shape = orb->shape;
-    drawinfo->color = cons4f(1,1,1,1);
+    drawinfo->color = cons4f(0,1,1,1);
+    drawinfo->enable_culling = false;
     drawinfo->model = (Mat4f) {
         1, 0, 0, entity->pos.x,
         0, 1, 0, entity->pos.y,
@@ -74,4 +77,36 @@ void orb_draw (Entity* entity,  Shader* shader, DrawInfo* drawinfo) {
         0, 0, 0, 1,
     };
     shader_draw(shader, drawinfo);
+}
+
+
+//
+// Orb Shape Code.
+//
+
+static
+Vec3f dirvec (float pitch, float yaw) {
+    float sy = sin(yaw);
+    float cy = cos(yaw);
+
+    float sp = sin(pitch);
+    float cp = cos(pitch);
+
+    return normalize3f(cons3f(cp*sy, sp, cp*cy));
+}
+
+static
+Shape* mkOrbShape () {
+    // VertexBuffer* buf = vertexbuffer_create();
+    //
+    // #define STEPS 50
+    //
+    // for (int i = 0; i < STEPS) {
+    //
+    // }
+    //
+    // Shape* orb = vertexbuffer_export(buf, GL_TRIANGLES);
+    // vertexbuffer_destroy(buf);
+    //
+    // return orb;
 }
