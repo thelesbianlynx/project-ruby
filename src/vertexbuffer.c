@@ -65,6 +65,10 @@ void vertexbuffer_vertex (VertexBuffer* vertexbuffer, Vec4f vertex) {
     vertexbuffer->size += 13;
 }
 
+void vertexbuffer_vertex3f (VertexBuffer* vertexbuffer, Vec3f vertex){
+    vertexbuffer_vertex(vertexbuffer, cons4f(vertex.x, vertex.y, vertex.z, 1));
+}
+
 Shape* vertexbuffer_export (VertexBuffer* vertexbuffer, uint32_t type) {
     uint32_t size = vertexbuffer->size / 13;
     return shape_create(vertexbuffer->data, size, type);

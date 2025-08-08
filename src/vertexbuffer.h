@@ -22,5 +22,6 @@ void vertexbuffer_color (VertexBuffer* vertexbuffer, Vec4f color);
 void vertexbuffer_normal (VertexBuffer* vertexbuffer, Vec3f normal);
 
 void vertexbuffer_vertex (VertexBuffer* vertexbuffer, Vec4f vertex);
+void vertexbuffer_vertex3f (VertexBuffer* vertexbuffer, Vec3f vertex);
 
 Shape* vertexbuffer_export (VertexBuffer*, uint32_t type);
